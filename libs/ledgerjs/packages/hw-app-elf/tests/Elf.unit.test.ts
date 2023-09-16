@@ -4,7 +4,7 @@ import Elf from "../src/Elf";
 jest.mock("axios");
 
 describe("AElf app binding", () => {
-  const DERIVATION_PATH = "m/44'/1616'/0'/0'/0";
+  const DERIVATION_PATH = "m/44'/1616'/0'/0/0";
 
   beforeEach(() => {
     jest.resetAllMocks();

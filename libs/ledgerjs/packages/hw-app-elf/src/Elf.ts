@@ -52,7 +52,7 @@ export default class Elf {
    * @option boolChaincode optionally enable or not the chaincode request
    * @return an object with a publicKey, address and (optionally) chainCode
    * @example
-   * elf.getAddress("44'/60'/0'/0/0").then(o => o.address)
+   * elf.getAddress("m/44'/1616'/0'/0/0").then(o => o.address)
    */
   getAddress(
     path: string,
@@ -93,7 +93,7 @@ export default class Elf {
    * @param path: the BIP32 path to sign the transaction on
    * @param rawTxHex: the raw aelf transaction in hexadecimal to sign
    * @example
-   const result = elf.signTransaction("44'/1616'/0'/0/0", tx);
+   const result = elf.signTransaction("m/44'/1616'/0'/0/0", tx);
    console.log(result);
    */
   async signTransaction(
