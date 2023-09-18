@@ -49,7 +49,6 @@ export default class Elf {
    * get AElf address for a given BIP 32 path.
    * @param path a path in BIP 32 format
    * @option boolDisplay optionally enable or not the display
-   * @option boolChaincode optionally enable or not the chaincode request
    * @return an object with a publicKey, address and (optionally) chainCode
    * @example
    * elf.getAddress("m/44'/1616'/0'/0/0").then(o => o.address)
@@ -57,11 +56,9 @@ export default class Elf {
   getAddress(
     path: string,
     boolDisplay?: boolean,
-    boolChaincode?: boolean,
   ): Promise<{
     publicKey: string;
     address: string;
-    chainCode?: string;
   }> {
     const paths = pathStringToArray(path);
     const buffer = Buffer.alloc(1 + paths.length * 4);
@@ -77,12 +74,10 @@ export default class Elf {
         const address = AElf.wallet.getAddressFromPubKey(
           ellipticEc.keyFromPublic(publicKey, "hex").getPublic(),
         );
-        const chainCode = response.slice(-2).toString("hex");
 
         return {
           publicKey,
           address,
-          chainCode: boolChaincode ? chainCode : undefined,
         };
       });
   }
@@ -101,7 +96,6 @@ export default class Elf {
     rawTxHex: string,
   ): Promise<{
     signature: string;
-    chainCode: string;
   }> {
     const paths = pathStringToArray(path);
     const pathBuffer = Buffer.alloc(1 + paths.length * 4);
@@ -124,11 +118,9 @@ export default class Elf {
       const res = response.toString("hex");
 
       const signature = res.slice(0, -4);
-      const chainCode = res.slice(-4);
 
       return {
         signature,
-        chainCode,
       };
     });
   }

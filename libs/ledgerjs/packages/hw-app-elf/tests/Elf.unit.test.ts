@@ -62,25 +62,6 @@ describe("AElf app binding", () => {
     });
   });
 
-  test("getAddress with chainCode", async () => {
-    const transport = await openTransportReplayer(
-      RecordStore.fromString(`
-      => e002000015058000002c80000650800000000000000000000000
-      <= 04a1a2d994e07e7f34ed6d3b6850bb7c534ee481aa52d6a076d52667e3efefc2d840ab9e4a9be21d42f2802deb7ceee31a13a62646deba6745429ad8654d30d2c19000
-      `),
-    );
-
-    const elf = new Elf(transport);
-    const result = await elf.getAddress(DERIVATION_PATH, false, true);
-
-    expect(result).toEqual({
-      address: "d41uXjj7AmvDjkCU9bvfWpZdYEjpVyxmTBSc6fsdkB2L4dGos",
-      publicKey:
-        "04a1a2d994e07e7f34ed6d3b6850bb7c534ee481aa52d6a076d52667e3efefc2d840ab9e4a9be21d42f2802deb7ceee31a13a62646deba6745429ad8654d30d2c1",
-      chainCode: "9000",
-    });
-  });
-
   test("signTransaction", async () => {
     const transport = await openTransportReplayer(
       RecordStore.fromString(`
@@ -98,7 +79,6 @@ describe("AElf app binding", () => {
     expect(result).toEqual({
       signature:
         "fdebf82f946f7e5acbaf3237f9725ed89f462e4cb786441bf458db5a3cb5cbf85380eb3321c3dbc9943f022ce6d8978f46baadbfd5eea8bf097bed5ae6312ec500",
-      chainCode: "9000",
     });
   });
 });
